@@ -1,6 +1,3 @@
-//  script.js — El Servidor Perdido
-//  Resident Evil 1 — Audio persistente + lógica
-
 const STORAGE_KEY_TIME   = 're1_music_time';
 const STORAGE_KEY_ACTIVE = 're1_music_active';
 
