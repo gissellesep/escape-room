@@ -213,9 +213,9 @@ $porcentaje = round((($nivel - 1) / $total_pistas) * 100);
     <?php endif; ?>
 
     <?php if ($mostrar_go): ?>
-    reproducirError();
-    setTimeout(() => reproducirStars(), 500);
+    reproducirStars();
     <?php endif; ?>
 </script>
 </body>
 </html>
+
