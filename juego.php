@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['intentos']++;
 
         if (strcasecmp($resp, $pista_val['respuesta']) === 0) {
-            // ✔ Correcto
             $mensaje = '✔ ' . $pista_val['mensaje_exito'];
             $tipo    = 'exito';
             $_SESSION['nivel']++;
@@ -40,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: final.php'); exit();
             }
         } else {
-            // ✖ Incorrecto
             $_SESSION['errores']++;
             $errores = $_SESSION['errores'];
             $tipo    = 'error';
@@ -78,41 +76,29 @@ $porcentaje = round((($nivel - 1) / $total_pistas) * 100);
 
 <div class="fondo-mansion"></div>
 
-<!-- MODAL GAME OVER-->
+<!-- MODAL GAME OVER -->
 <?php if ($mostrar_go): ?>
 <div class="modal-gameover visible" id="modal-gameover">
-
-    <!-- AUDIO GAME OVER -->
-    <audio id="audio-gameover" autoplay>
-        <source src="audio/stars.mp3" type="audio/mpeg">
-    </audio>
-
     <div class="gameover-box">
-
         <img src="img/zombie_error.jpg"
              alt="Zombie del laboratorio"
              class="gameover-zombie">
-
         <div class="gameover-titulo">
             ¡Némesis te encontró!
         </div>
-
         <div class="gameover-texto">
             Nemesis localizó tu posición dentro del laboratorio.<br>
             El protocolo de contención ha fallado.<br>
             No hubo sobrevivientes.
         </div>
-
-        <button class="boton gameover-btn"
-                onclick="cerrarGameOver()">
+        <button class="boton gameover-btn" onclick="cerrarGameOver()">
             ▶ REINICIAR MISIÓN (si te atreves)
         </button>
-
     </div>
 </div>
 <?php endif; ?>
 
-<!--TRANSICIÓN PUERTA-->
+<!-- TRANSICIÓN PUERTA -->
 <div class="puerta-overlay" id="puerta-overlay">
     <video
         id="puerta-video"
@@ -223,24 +209,13 @@ $porcentaje = round((($nivel - 1) / $total_pistas) * 100);
     actualizarBarra(<?php echo $nivel; ?>, <?php echo $total_pistas; ?>);
 
     <?php if ($tipo === 'error' && !$mostrar_go): ?>
-    // Reproducir error con fade de volumen
     reproducirError();
     <?php endif; ?>
 
     <?php if ($mostrar_go): ?>
-
-setTimeout(() => {
-
-    const audio = document.getElementById("audio-gameover");
-
-    if (audio) {
-        audio.volume = 1;
-        audio.play().catch(e => console.log(e));
-    }
-
-}, 300);
-
-<?php endif; ?>
+    reproducirError();
+    setTimeout(() => reproducirStars(), 500);
+    <?php endif; ?>
 </script>
 </body>
 </html>
