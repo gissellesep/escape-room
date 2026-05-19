@@ -1,6 +1,4 @@
 <?php
-//  juego.php — Lógica principal del juego
-//  El Servidor Perdido — Resident Evil 1
 session_start();
 include('conexion.php');
 
