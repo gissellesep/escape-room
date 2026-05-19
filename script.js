@@ -8,6 +8,9 @@ audioMusica.volume = 0.55;
 const audioError  = new Audio('audio/error.mp3');
 audioError.volume  = 1.0;
 
+const audioStars = new Audio('audio/stars.mp3');
+audioStars.volume = 1.0;
+
 
 function iniciarMusica() {
     
@@ -69,6 +72,29 @@ function reproducirError() {
             j++;
             audioMusica.volume = Math.min(volOriginal,
                 volBajo + (volOriginal - volBajo) * (j / pasos));
+            if (j >= pasos) clearInterval(subida);
+        }, 25);
+    };
+}
+
+
+function reproducirStars() {
+    const volBajo = 0.10;
+    const pasos   = 12;
+
+    // Forzar volumen bajo sin esperar que suba primero
+    audioMusica.volume = volBajo;
+
+    audioStars.currentTime = 0;
+    audioStars.play().catch(() => {});
+
+    audioStars.onended = () => {
+        let j = 0;
+        const volObjetivo = 0.55;
+        const subida = setInterval(() => {
+            j++;
+            audioMusica.volume = Math.min(volObjetivo,
+                volBajo + (volObjetivo - volBajo) * (j / pasos));
             if (j >= pasos) clearInterval(subida);
         }, 25);
     };
@@ -178,3 +204,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
